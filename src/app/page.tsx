@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button, Card, Container, ImageSlot, SectionHeading } from "@/components/ui";
 import { HomeHero } from "@/components/hero-variants";
 import { serviceCategories, tiers, uspPillars } from "@/lib/services";
+import { posts } from "@/lib/blog";
 import { proof, serviceAreas, site } from "@/lib/site";
 
 export default function HomePage() {
@@ -112,11 +113,14 @@ export default function HomePage() {
             title="Pick the level of partnership that fits the property."
             lead="From a single fixed-price project to a year-round contract with the same crew on call through every season."
           />
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          {/* Flex-wrap so the orphan row (5 tiers over 3 cols) centers. */}
+          <div className="mt-12 flex flex-wrap justify-center gap-5">
             {tiers.map((t) => (
               <Card
                 key={t.slug}
-                className={"featured" in t && t.featured ? "ring-2 ring-sandstone" : ""}
+                className={`w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)] ${
+                  "featured" in t && t.featured ? "ring-2 ring-sandstone" : ""
+                }`}
               >
                 <div className="flex items-baseline justify-between gap-3">
                   <h3 className="text-h3">{t.name}</h3>
@@ -234,6 +238,40 @@ export default function HomePage() {
                 <Button href="/about">Meet the family behind it</Button>
               </div>
             </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ── From the blog (section 11 mid-funnel SEO content) ────────── */}
+      <section className="py-[var(--spacing-section)]">
+        <Container>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <SectionHeading
+              eyebrow="From the journal"
+              title="Straight answers, before you spend a dollar."
+            />
+            <Button href="/blog" variant="ghost">
+              Read the blog
+            </Button>
+          </div>
+          <div className="mt-12 grid gap-x-6 gap-y-10 md:grid-cols-3">
+            {[...posts]
+              .sort((a, b) => b.date.localeCompare(a.date))
+              .slice(0, 3)
+              .map((p) => (
+                <Link key={p.slug} href={`/blog/${p.slug}`} className="group">
+                  <ImageSlot label={p.category} src={p.image} ratio="3 / 2" />
+                  <p className="mt-5 text-meta font-semibold uppercase tracking-[0.16em] text-clay">
+                    {p.category} · {p.readMinutes} min read
+                  </p>
+                  <h3 className="mt-2 text-h3 transition-colors group-hover:text-sandstone">
+                    {p.title}
+                  </h3>
+                  <p className="mt-3 text-meta leading-relaxed text-charcoal/70">
+                    {p.description}
+                  </p>
+                </Link>
+              ))}
           </div>
         </Container>
       </section>

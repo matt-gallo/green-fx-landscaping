@@ -1,65 +1,266 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Button, Card, Container, ImageSlot, SectionHeading } from "@/components/ui";
+import { HomeHero } from "@/components/hero-variants";
+import { serviceCategories, tiers, uspPillars } from "@/lib/services";
+import { proof, serviceAreas, site } from "@/lib/site";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    <>
+      {/* Hero: section 1 promise + emotional core (section 2: Pride). */}
+      <HomeHero />
+
+      {/* ── The three-contractor problem (section 2) ─────────────────── */}
+      <section className="py-[var(--spacing-section)]">
+        <Container>
+          <SectionHeading
+            eyebrow="The problem"
+            title="You shouldn't need four companies to look after one yard."
+            lead="One company designs. Another builds. A third maintains. A fourth shows up with a plow. Nothing matches, nothing communicates, and no one owns the outcome."
+          />
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {[
+              {
+                h: "Mid-project ghosting",
+                p: "Quoted in March, started in May, abandoned in July with half a patio in the side yard. Nobody answers the phone.",
+              },
+              {
+                h: "Maintenance roulette",
+                p: "The build crew leaves, a different lawn guy shows up with a different standard, and the $60K patio is surrounded by patchy sod within a season.",
+              },
+              {
+                h: "Winter abandonment",
+                p: "The crew that designed the front yard disappears on November 1st, and you’re finding a snow contractor in the middle of the first storm.",
+              },
+            ].map((item) => (
+              <Card key={item.h}>
+                <h3 className="text-h3">{item.h}</h3>
+                <p className="mt-3 text-meta leading-relaxed text-charcoal/70">
+                  {item.p}
+                </p>
+              </Card>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ── USP pillars (section 3) ──────────────────────────────────── */}
+      <section className="bg-white py-[var(--spacing-section)]">
+        <Container>
+          <SectionHeading
+            eyebrow="What makes Green FX a category of one"
+            title="Designed, built and maintained by the same hands."
+          />
+          <div className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-2">
+            {uspPillars.map((pillar, i) => (
+              <div key={pillar.title} className="flex gap-5">
+                <span className="text-h3 font-semibold text-stone">
+                  0{i + 1}
+                </span>
+                <div>
+                  <h3 className="text-h3">{pillar.title}</h3>
+                  <p className="mt-3 leading-relaxed text-charcoal/75">
+                    {pillar.body}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Service categories (section 4) ───────────────────────────── */}
+      <section className="py-[var(--spacing-section)]">
+        <Container>
+          <SectionHeading
+            eyebrow="Under one roof"
+            title="Four service categories most competitors split across four companies."
+          />
+          <div className="mt-12 grid gap-5 sm:grid-cols-2">
+            {serviceCategories.map((s) => (
+              <Card key={s.slug} className="flex flex-col">
+                <h3 className="text-h3">{s.name}</h3>
+                <p className="mt-3 flex-1 leading-relaxed text-charcoal/75">
+                  {s.blurb}
+                </p>
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {s.items.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-full bg-limestone px-3 py-1 text-[0.78rem] text-forest"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            ))}
+          </div>
+          <div className="mt-10">
+            <Button href="/services" variant="ghost">
+              All services &amp; how we work
+            </Button>
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Service tiers (section 4: offer architecture) ────────────── */}
+      <section className="bg-white py-[var(--spacing-section)]">
+        <Container>
+          <SectionHeading
+            eyebrow="The offer"
+            title="Pick the level of partnership that fits the property."
+            lead="From a single fixed-price project to a year-round contract with the same crew on call through every season."
+          />
+          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+            {tiers.map((t) => (
+              <Card
+                key={t.slug}
+                className={"featured" in t && t.featured ? "ring-2 ring-sandstone" : ""}
+              >
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="text-h3">{t.name}</h3>
+                  <span className="text-meta font-semibold text-clay">
+                    {t.price}
+                  </span>
+                </div>
+                <p className="mt-3 text-meta leading-relaxed text-charcoal/70">
+                  {t.summary}
+                </p>
+                <ul className="mt-5 space-y-2">
+                  {t.points.map((p) => (
+                    <li key={p} className="flex gap-2 text-meta text-charcoal/80">
+                      <span className="text-sandstone">—</span>
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Proof points (section 5) ─────────────────────────────────── */}
+      <section className="bg-forest py-[var(--spacing-section)] text-limestone">
+        <Container>
+          <SectionHeading
+            invert
+            eyebrow="Reason to believe"
+            title="Credentials a commercial GC carries — handed to a homeowner."
+          />
+          <div className="mt-12 grid grid-cols-2 gap-8 lg:grid-cols-4">
+            {proof.map((p) => (
+              <div key={p.label}>
+                <p className="font-serif text-[2.75rem] leading-none text-sandstone">
+                  {p.value}
+                </p>
+                <p className="mt-3 font-medium text-limestone">{p.label}</p>
+                <p className="mt-1 text-meta text-stone/70">{p.note}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Portfolio teaser (section 5 observation) ─────────────────── */}
+      <section className="py-[var(--spacing-section)]">
+        <Container>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <SectionHeading
+              eyebrow="Recent work"
+              title="Real projects. Real homes. Real materials."
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <Button href="/portfolio" variant="ghost">
+              View the full portfolio
+            </Button>
+          </div>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <ImageSlot
+              label="Hardscape"
+              src="/portfolio/hardscape-02.jpg"
+              caption={{ project: "Patio & walkway", location: "Hardscape", year: "Green FX" }}
+            />
+            <ImageSlot
+              label="Lawn & Garden"
+              src="/portfolio/garden-01.jpg"
+              caption={{ project: "Garden & sod installation", location: "Lawn & Garden", year: "Green FX" }}
+            />
+            <ImageSlot
+              label="Design-Build"
+              src="/portfolio/lighting-01.jpg"
+              caption={{ project: "Landscape lighting", location: "Design-Build", year: "Green FX" }}
+            />
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Sales argument (section 7) ───────────────────────────────── */}
+      <section className="bg-white py-[var(--spacing-section)]">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+            <ImageSlot
+              label="Completed Green FX project"
+              src="/portfolio/hardscape-01.jpg"
+              ratio="4 / 5"
+            />
+            <div>
+              <SectionHeading
+                eyebrow="Why Green FX"
+                title="The team that designs the work is the team that maintains it."
+              />
+              <div className="prose-brief mt-6 text-charcoal/80">
+                <p>
+                  You bought the house because of the lot. And then the previous
+                  owner&rsquo;s landscaping let you down — a patio sinking on one
+                  side, a retaining wall starting to bulge, a garden exhausted by
+                  August.
+                </p>
+                <p>
+                  In Etobicoke, Vaughan and Richmond Hill there are roughly four
+                  hundred companies that will quote a patio. Almost none will be
+                  in business in five years. Almost none will pick up the phone in
+                  February with a foot of snow on the driveway.
+                </p>
+                <p>
+                  Green FX was founded in {site.established} and is still run
+                  today by the family that started it. {site.yearsInBusiness}{" "}
+                  years. Same owner. Same standards. Real documentation, handed to
+                  you before the first quote — because that&rsquo;s how you treat
+                  a $50,000 outdoor living project.
+                </p>
+              </div>
+              <div className="mt-8">
+                <Button href="/about">Meet the family behind it</Button>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Final CTA (section 11 bottom-funnel) ─────────────────────── */}
+      <section className="bg-bark py-[var(--spacing-section)] text-limestone">
+        <Container className="text-center">
+          <h2 className="mx-auto max-w-3xl text-h2 !text-limestone">
+            Almost twenty years. One family. One crew. Four seasons.
+          </h2>
+          <p className="mx-auto mt-5 max-w-xl text-lead text-stone">
+            Start with a free on-site estimate — a real site walk, a written
+            scope, and a materials list. No obligation. We respond within one
+            business day.
+          </p>
+          <div className="mt-9 flex justify-center">
+            <Button href="/contact">Book your free estimate</Button>
+          </div>
+          <p className="mt-8 text-meta text-stone/60">
+            Serving {serviceAreas.slice(0, -1).join(", ")} &amp;{" "}
+            {serviceAreas.at(-1)} —{" "}
+            <Link href="/areas/vaughan" className="underline hover:text-limestone">
+              find your municipality
+            </Link>
+          </p>
+        </Container>
+      </section>
+    </>
   );
 }

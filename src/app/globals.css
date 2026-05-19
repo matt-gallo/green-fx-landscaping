@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  Green FX brand system — derived from the Mercenary Method creative brief, section 12.
+  Palette per 12.3, type scale per 12.4. Bright lime/kelly green is retired.
+*/
+
+@theme {
+  /* Color — section 12.3 */
+  --color-forest: #1f3d2b; /* Primary: headers, primary buttons, nav, key surfaces */
+  --color-bark: #0f2418; /* Primary dark: footers, deep contrast, hover */
+  --color-sandstone: #c97b5a; /* Accent: CTAs, hover accents, secondary callouts */
+  --color-clay: #a85c3f; /* Warm accent: pull-quotes, badge highlights (sparingly) */
+  --color-limestone: #f7f4ee; /* Neutral light: page backgrounds, cards */
+  --color-stone: #d6cfc2; /* Neutral mid: dividers, secondary surfaces, overlays */
+  --color-charcoal: #262421; /* Neutral dark: body copy, secondary headlines */
+
+  /* Typography — section 12.4. Fraunces (display) + Inter (body), free alternatives per brief. */
+  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  /* Editorial type scale */
+  --text-display: clamp(2.75rem, 6vw, 4.5rem); /* H1 56–72px */
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.01em;
+
+  --text-h2: clamp(2rem, 4vw, 3rem); /* H2 36–48px */
+  --text-h2--line-height: 1.12;
+  --text-h2--letter-spacing: -0.005em;
+
+  --text-h3: clamp(1.4rem, 2vw, 1.75rem); /* H3 24–28px */
+  --text-h3--line-height: 1.2;
+
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.5;
+
+  --text-body: 1.0625rem; /* 17px body per brief */
+  --text-body--line-height: 1.55;
+
+  --text-meta: 0.875rem; /* 14px caption/meta */
+  --text-meta--line-height: 1.4;
+
+  /* UI surface — section 12.6: 8–12px radius, one-tier shadow */
+  --radius-card: 0.625rem; /* 10px */
+  --radius-pill: 999px;
+
+  --shadow-card: 0 1px 2px rgba(15, 36, 24, 0.04), 0 8px 24px rgba(15, 36, 24, 0.06);
+
+  --spacing-section: 6rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background-color: var(--color-limestone);
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Headlines: serif, editorial — section 12.4 */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    color: var(--color-forest);
+    font-weight: 500;
+    font-optical-sizing: auto;
+  }
+
+  ::selection {
+    background-color: var(--color-sandstone);
+    color: #fff;
+  }
+
+  /* Visible, on-brand focus ring for keyboard users */
+  :focus-visible {
+    outline: 2px solid var(--color-sandstone);
+    outline-offset: 2px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* Consistent content rhythm for long-form prose blocks */
+  .prose-brief p {
+    margin-bottom: 1.15rem;
+    max-width: 62ch;
+  }
+
+  .prose-brief p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Subtle top hairline used between editorial sections */
+  .rule-stone {
+    border-top: 1px solid var(--color-stone);
+  }
 }

@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Green FX Landscaping — Website
 
-## Getting Started
+Next.js 16 (App Router) + Tailwind v4. Marketing site built from the Mercenary
+Method creative brief. Replaces the templated suburban-landscaper site with a
+premium GTA outdoor-living craftsman brand.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy (GitHub → Railway)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Same pattern as the other TF sites: push to GitHub, Railway auto-builds.
 
-## Learn More
+- `railway.json` pins the build (`npm run build`) and start (`npm run start`).
+- Railway injects `$PORT`; `next start` binds to it automatically.
+- No environment variables are required for the static marketing site.
 
-To learn more about Next.js, take a look at the following resources:
+## Where the content lives
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+All copy and config is centralized so it can be updated without touching JSX:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| File | Contents |
+|---|---|
+| `src/lib/site.ts` | Phone, email, review URL, service areas, nav, proof points |
+| `src/lib/services.ts` | 4 service categories, 5 offer tiers, USP pillars |
+| `src/lib/portfolio.ts` | Project list (captions; swap in real photos) |
+| `src/lib/areas.ts` | Per-municipality SEO pages (add a municipality here) |
 
-## Deploy on Vercel
+## Open items for Pino (marked `TODO(Pino)` in code)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Real phone number and email (`src/lib/site.ts`).
+- Confirm proof-point numbers: project count, average ticket, Google review
+  count + rating (brief section 5 "Open" note).
+- Supply real project photography — every `ImageSlot` is a marked placeholder;
+  no stock per brief 12.5.
+- Wire the estimate form to a CRM/email endpoint, and embed Cal.com / Calendly
+  in the contact-page booking slot.
+- Optional: buy Canela + Söhne licenses to swap the free Fraunces + Inter
+  fonts (configured in `src/app/layout.tsx`).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Brand system
+
+Implemented per brief section 12: Forest/Bark/Sandstone/Clay/Limestone/Stone/
+Charcoal palette, Fraunces + Inter type, 60/30/10 balance, refreshed vector
+wordmark (no JPG, no header coupon), footer-only trust strip, edge-to-edge
+captioned image treatment. Tokens are in `src/app/globals.css`.

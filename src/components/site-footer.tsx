@@ -90,14 +90,17 @@ export function SiteFooter() {
             © {new Date().getFullYear()} {site.legalName}. Family-owned since{" "}
             {site.established}. Based near {site.baseHomeRadius}.
           </p>
-          <a
-            href={site.reviewUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-limestone"
-          >
-            Read our Google reviews
-          </a>
+          {/* Shown only once a Google Business Profile exists (see site.ts). */}
+          {site.hasGoogleProfile && (
+            <a
+              href={site.reviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-limestone"
+            >
+              Read our Google reviews
+            </a>
+          )}
         </div>
       </Container>
     </footer>

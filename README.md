@@ -44,6 +44,21 @@ All copy and config is centralized so it can be updated without touching JSX:
 - Optional: buy Canela + Söhne licenses to swap the free Fraunces + Inter
   fonts (configured in `src/app/layout.tsx`).
 
+## Sales / engagement notes (Rob)
+
+- **No Google Business Profile exists yet.** The footer "Read our Google
+  reviews" link and any review proof are gated behind `site.hasGoogleProfile`
+  (currently `false`) so nothing dead ships. GBP setup + ongoing review
+  management is part of the TrueFlow upsell — a concrete, recurring-value gap
+  to lead with, not just a missing link.
+- Offer structure being floated: ~$1,500 up front to finish the site +
+  connect everything through GHL (Rob already uses GHL); $150/wk to maintain
+  the SEO-optimized blog so he starts ranking. If he moves to TrueFlow in GHL:
+  add Google review management + a booking agent / chat widget (the contact
+  page already has a marked booking-embed slot ready for this).
+- The site is offered free as-is if he just wants it; the recurring work
+  (blog SEO, reviews, booking agent) is the actual business.
+
 ## Brand system
 
 Implemented per brief section 12: Forest/Bark/Sandstone/Clay/Limestone/Stone/

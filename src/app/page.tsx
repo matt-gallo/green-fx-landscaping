@@ -113,12 +113,22 @@ export default function HomePage() {
             title="Pick the level of partnership that fits the property."
             lead="From a single fixed-price project to a year-round contract with the same crew on call through every season."
           />
-          {/* Flex-wrap so the orphan row (5 tiers over 3 cols) centers. */}
+          {/*
+            Flex-wrap so orphan rows center. 5 tiers:
+            - lg (3 cols): 3 + 2 centered
+            - sm (2 cols): the 5th card spans full width (no stranded half)
+          */}
           <div className="mt-12 flex flex-wrap justify-center gap-5">
-            {tiers.map((t) => (
+            {tiers.map((t, idx) => {
+              const isLastOrphan = idx === tiers.length - 1; // 5th of 5
+              return (
               <Card
                 key={t.slug}
-                className={`w-full sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)] ${
+                className={`w-full ${
+                  isLastOrphan
+                    ? "sm:w-full lg:w-[calc(33.333%-0.834rem)]"
+                    : "sm:w-[calc(50%-0.625rem)] lg:w-[calc(33.333%-0.834rem)]"
+                } ${
                   "featured" in t && t.featured ? "ring-2 ring-sandstone" : ""
                 }`}
               >
@@ -140,7 +150,8 @@ export default function HomePage() {
                   ))}
                 </ul>
               </Card>
-            ))}
+              );
+            })}
           </div>
         </Container>
       </section>

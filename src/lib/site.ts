@@ -16,6 +16,11 @@ export const site = {
   phone: "(905) 555-0100", // TODO(Pino): confirm real number
   phoneHref: "tel:+19055550100", // TODO(Pino): confirm real number
   email: "hello@greenfxlandscaping.com", // TODO(Pino): confirm
+  // TODO(GBP): Green FX has NO Google Business Profile yet. This URL is from
+  // the brief and currently does not resolve. Setting up + managing GBP and
+  // reviews is part of the TrueFlow upsell. `hasGoogleProfile` gates the
+  // footer link until the profile is live — flip to true once it exists.
+  hasGoogleProfile: false,
   reviewUrl: "https://g.page/r/CfabZIR2FYUOEBM/review",
   currentSite: "https://greenfxlandscaping.com",
   baseHomeRadius: "Tottenham, ON",

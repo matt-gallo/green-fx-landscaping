@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button, Card, Container, ImageSlot, SectionHeading } from "@/components/ui";
 import { HomeHero } from "@/components/hero-variants";
+import { NewsletterPopup } from "@/components/newsletter-popup";
 import { serviceCategories, tiers, uspPillars } from "@/lib/services";
 import { posts } from "@/lib/blog";
 import { proof, serviceAreas, site } from "@/lib/site";
@@ -8,6 +9,7 @@ import { proof, serviceAreas, site } from "@/lib/site";
 export default function HomePage() {
   return (
     <>
+      <NewsletterPopup />
       {/* Hero: section 1 promise + emotional core (section 2: Pride). */}
       <HomeHero />
 
